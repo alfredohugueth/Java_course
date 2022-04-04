@@ -1,5 +1,6 @@
 package datos;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
@@ -7,9 +8,14 @@ import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 
 public class Conexion {
+
+    private static final Dotenv dotenv = Dotenv.configure()
+            .directory("C:\\Users\\Alfredo Hugueth Polo\\Documents\\Java_Course\\JDBC\\IntroduccionJDBC\\src\\main")
+            .filename(".env")
+            .load();
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test?useSSL=false&useTimezone=true&serverTimezone=UTC";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "q6winaj3";
+    private static final String JDBC_PASSWORD = dotenv.get("JDBC_PASSWORD");
 
     public static DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
